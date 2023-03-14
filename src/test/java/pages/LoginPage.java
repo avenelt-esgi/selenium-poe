@@ -4,6 +4,7 @@ import helpers.TestDriver;
 import helpers.TestElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
 public class LoginPage extends GlpiPageObject {
 
@@ -19,21 +20,17 @@ public class LoginPage extends GlpiPageObject {
     }
 
     public LoginPage setUser(String username) {
-        TestElement loginName = driver.findElement(By.id("login_name"));
-        loginName.click();
-        loginName.sendKeys(username);
+        driver.clickAndSendKeys(By.id("login_name"), username);
         return this;
     }
 
     public LoginPage setPassword(String password) {
-        TestElement passwd = driver.findElement(By.cssSelector("input[type='password']"));
-        passwd .click();
-        passwd .sendKeys(password);
+        driver.clickAndSendKeys(By.cssSelector("input[type='password']"), password);
         return this;
     }
 
     public HomePage clickLoginButton() {
-        driver.findElement(By.cssSelector("button[name='submit']")).click();
+        driver.click(By.cssSelector("button[name='submit']"));
         return new HomePage(driver);
     }
 }

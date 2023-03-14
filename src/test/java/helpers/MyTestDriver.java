@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MyTestDriver implements TestDriver {
 
@@ -34,6 +36,26 @@ public class MyTestDriver implements TestDriver {
     @Override
     public String getCurrentUrl() {
         return this.driver.getCurrentUrl();
+    }
+
+    @Override
+    public TestElement click(By by) {
+        findElement(by);
+
+        // wait for element to be clickable
+        WebDriverWait wait = new WebDriverWait(this.driver, 10);
+        WebElement element = wait.until( ExpectedConditions.elementToBeClickable(by) );
+
+        element.click();
+
+        return new TestElement(element);
+    }
+
+    @Override
+    public TestElement clickAndSendKeys(By by, String content) {
+        TestElement elt = click(by);
+        elt.sendKeys(content);
+        return elt;
     }
 
     @Override

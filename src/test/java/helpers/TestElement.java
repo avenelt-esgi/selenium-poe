@@ -10,11 +10,6 @@ public class TestElement {
         this.element = element;
     }
 
-    public WebElement click() {
-        this.element.click();
-        return this.element;
-    }
-
     public WebElement sendKeys(String keys) {
         this.element.sendKeys(keys);
         return this.element;
