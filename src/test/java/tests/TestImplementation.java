@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -52,7 +53,10 @@ public class TestImplementation {
         passwd .click();
         passwd .sendKeys(TEST_PASSWORD);
 
-        driver.findElement(By.cssSelector("button[name='submit']")).click();
+        WebElement loginButton = driver.findElement(By.cssSelector("button[name='submit']"));
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].scrollIntoView(true);", loginButton);
+        loginButton.click();
 
         // Assert
         String HOME_URL = "https://tomavt.with16.glpi-network.cloud/front/central.php";

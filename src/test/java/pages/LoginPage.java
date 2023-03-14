@@ -3,6 +3,7 @@ package pages;
 import helpers.TestDriver;
 import helpers.TestElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 
 public class LoginPage extends GlpiPageObject {
 

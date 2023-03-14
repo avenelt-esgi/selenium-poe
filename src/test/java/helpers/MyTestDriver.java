@@ -1,7 +1,9 @@
 package helpers;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class MyTestDriver implements TestDriver {
 
@@ -13,9 +15,11 @@ public class MyTestDriver implements TestDriver {
 
     @Override
     public TestElement findElement(By by) {
-        var elt = new TestElement(this.driver.findElement(by));
+        WebElement webElt = this.driver.findElement(by);
+        scrollToElement(webElt);
+        var elt = new TestElement(webElt);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException("Sleep in findElement decorator interrupted", e);
         }
@@ -35,5 +39,10 @@ public class MyTestDriver implements TestDriver {
     @Override
     public void quit() {
         this.driver.quit();
+    }
+
+    private void scrollToElement(WebElement element) {
+        JavascriptExecutor jse = (JavascriptExecutor)this.driver;
+        jse.executeScript("arguments[0].scrollIntoView(true);", element);
     }
 }
